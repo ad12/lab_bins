@@ -1,0 +1,44 @@
+﻿add36
+
+
+
+
+Good Things
+created Disk class to store information about data type used in priority queues—> gives a structure to the class and a comparable that allows it to be sorted automatically in the priority queues
+
+
+
+
+Readability
+1. The use of a priority queue helps to show that the Disks are being chosen based on some comparator, which is set to be the amount of free space on the disk. Creating a Disk class organizes the code and allows the instance of the class to store the data necessary to execute the algorithm (amount of free space available and files already on the disk). Dividing the methods in the Disk class also effectively allocated the tasks independently of one another. Creating a static final variable DATA_FILE identified it as the reference to the filename of the document from which the program files could be read. Also, the readData method in the Bins class also organized the task of reading from a file. The use of the sort method before the second for loop indicated that the second algorithm was based on worst-fit decreasing order.
+    The algorithm becomes unclear within the logic of the for loops. In the first loop the if statement is if(d.freeSpace()>size) not >=, as it is correctly listed in the second for loop. If the disk can hold exactly the size of the file that is to be added, a new disk should not be created. Also, the print statement says “how many pq used,” but the number of priority queue’s is always one. 
+
+
+2. The Disk class has a useful comment to describe the purpose of the class at the beginning of the program. However the comments for every method are unnecessary. The names of the methods as well as the expected structure for the constructors reveal the intentions of each method. 
+    In addition, the comment describing the purpose of the Bins class could be more informative as to which algorithms are being used. The comment describing the use of the readData method is unnecessary as it is indicative from the name of the method and the code written in the method. The comment The main program is unnecessary as it is also indicated by the name of the method.
+
+
+3. The constructor code for the Disk class is duplicated. There are two constructors, but the constructor having id as a parameter could initialize the other variables of the instance of the Disk class by calling the other constructor. The use of if statements and return statements can be minimized by setting different parameters for the if statements in the equals and compareTo methods
+    The code for both algorithms in Bins is identical, other than the sorting needed for the worst-fit decreasing order method. Also, the reseting of the priority queue after each algorithm and the procedure for initializing the queue and adding a disk with id=0 is unclear when first read. The code to print the data to the console is also repeated. The use of the Bins class is also unclear as the only method it contains is the readData method.
+
+
+Testability
+1. To test the code for bugs, I would create multiple text files with different sizes and sources of data. To test smaller issues, such as checking if the algorithm is allocating files correctly, I would manually create a small data set with 5-10 values. I would work the algorithm out by hand and determine if the program I developed also yields an accurate response. I would set up the following scenarios: a small number of files (~5) whose sizes sum to 1GB and small number of files listed in no order in text file.
+   To determine where the bugs are most likely to occur, I would restructure the code to avoid duplicate code and to trim the code to avoid for redundancies. Then, I would have a debugging function that would print the result of the primary functions: reading the text file, and adding files to the disks, and comparing disks. This approach can be taken because the source code is small, the input can be forged, and the output can be manually predicted (for small number of files).
+2. One test case is test reading data from a file that does not exist.
+3. Having another function running the algorithm (i.e. the for loop) would isolate the algorithm for testing.
+4. A test case for the algorithm is testing is dealing with a file size of 0 or having a null data set.
+
+
+Extensibility
+1. The disk class has duplicated code in the constructor and equals method. The Bins class has a long main method and duplicates the code for the algorithm and printing the result. A good practice in the code written is separating the procedure of reading from the file, as it shows other coders that this method is independent of other tasks and should also be tested independently. The Bins class also has the Divergent Change issue. Because the algorithm code is duplicated, any changes made to the first for loop of the code must also be made to the second for loop. In addition, the primitive data type diskId has to be reset constantly before each algorithm is executed. The Bins class also does not have much substance, as its only non-main method is to read values from the files. However, the algorithm can be built into the Bins class itself, and the size of the main class can be reduced. 
+
+
+2. The code does not allow for extension to other algorithms. There is no method for processing the data file or for manipulating the data file (ie. sorting in decreasing order). The process of manipulating the data file before processing results in different algorithms (ie. decreasing order worst-fit heuristic). In this code, the algorithm would have to be copied and pasted again and the data set would have to be manipulated permanently before proceeding to the next algorithm. 
+
+
+3. The different parts of the algorithm are dependent on each other. The algorithm can only be run if the readFile method has run. Also, if one for loop has to be changed because of a discrepancy in the algorithm, the other for loop also has to be changed. The priority queue has to be reset prior to running each algorithm
+4. The dependencies are not easy to locate as the different parts of the project are not separated by different methods
+
+
+5. To clarify the dependencies, different methods can be written for creating reading the testFiles, creating the data list, and adding the data to disks in the priority queue. By separating the program into different methods, the code becomes more legible, and calls to different methods are easier to spot, making the dependencies clearer.
