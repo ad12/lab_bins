@@ -1,10 +1,13 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Scanner;
+import java.util.function.Function;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Uses worst-fit in order heuristic model to add files to disk.
@@ -150,5 +153,19 @@ public class Bins {
     public static void main (String args[]) {
         Bins b = new Bins();
         b.runAlgorithm();
+        
+        List<Integer> list = new ArrayList<>();
+        list.add(5);
+        list.add(7);
+        list.add(0);
+        list.add(23);
+        
+        Comparator<Integer> inReverseOrder = Comparator.reverseOrder();
+        b.fitDiskInPrint(list, (input) -> input.stream().sorted(inReverseOrder).collect(Collectors.toList()));
+    }
+    
+    public void fitDiskInPrint(List<Integer> integerList, Function<List<Integer>, List<Integer>> func) {
+        List<Integer> transformedList = func.apply(integerList);
+        transformedList.forEach(System.out::println);;
     }
 }
